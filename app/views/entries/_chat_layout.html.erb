@@ -1,7 +1,7 @@
 <%# Top bar with clear button %>
 <div class="px-4 pt-4 pb-0">
   <div class="max-w-3xl mx-auto flex justify-end">
-    <%= button_to clear_all_messages_path, method: :delete,
+    <%= button_to clear_all_entries_path, method: :delete,
       class: "group flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200 cursor-pointer",
       style: "color: #999; background: transparent;",
       data: { turbo_confirm: "Clear all messages?" },
@@ -17,18 +17,18 @@
   </div>
 </div>
 
-<div id="messages-container"
+<div id="entries-container"
      class="flex-1 overflow-y-auto px-4 py-6"
      data-chat-form-target="messagesContainer">
   <div class="max-w-3xl mx-auto">
-    <div id="messages">
-      <%= render messages %>
+    <div id="entries">
+      <%= render entries %>
     </div>
   </div>
 </div>
 
 <div class="pb-6 pt-2 px-4">
   <div class="max-w-3xl mx-auto">
-    <%= render "chat_input", form_message: form_message %>
+    <%= render "chat_input", form_entry: form_entry %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :messages do
+  resources :entries do
     collection do
       delete :clear_all
     end
@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "messages#index"
+  root "entries#index"
 end

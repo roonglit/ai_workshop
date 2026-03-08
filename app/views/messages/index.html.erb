@@ -1,9 +1,0 @@
-<% content_for :title, "Messages" %>
-
-<div id="chat-wrapper" class="flex flex-col flex-1 h-full w-full" data-controller="chat-form">
-  <% if @messages.any? %>
-    <%= render "chat_layout", messages: @messages, form_message: @message %>
-  <% else %>
-    <%= render "empty_state", form_message: @message %>
-  <% end %>
-</div>
