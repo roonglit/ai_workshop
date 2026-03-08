@@ -1,0 +1,24 @@
+<div id="<%= dom_id message %>" class="message-bubble flex <%= message.user? ? 'justify-end' : 'justify-start' %> mb-4 group">
+  <% if message.assistant? %>
+    <div class="flex items-start gap-3 max-w-2xl">
+      <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center" style="background-color: #D4714E;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-sm leading-relaxed whitespace-pre-wrap" style="color: #2F2F2E;"><%= message.content %></p>
+        <span class="text-xs mt-1 block opacity-0 group-hover:opacity-100 transition-opacity" style="color: #999;"><%= message.created_at.strftime("%-I:%M %p") %></span>
+      </div>
+    </div>
+  <% else %>
+    <div class="max-w-2xl">
+      <div class="px-5 py-3 rounded-3xl" style="background-color: #2F2F2E;">
+        <p class="text-sm leading-relaxed whitespace-pre-wrap" style="color: #FFFFFF;"><%= message.content %></p>
+      </div>
+      <span class="text-xs mt-1 block text-right opacity-0 group-hover:opacity-100 transition-opacity" style="color: #999;"><%= message.created_at.strftime("%-I:%M %p") %></span>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Ai Workshop" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Ai Workshop">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <style>
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: #FAF9F6;
+        margin: 0;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      .font-greeting {
+        font-family: 'Quicksand', sans-serif;
+      }
+
+      main {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #messages-container {
+        scrollbar-width: thin;
+        scrollbar-color: #d4d4d4 transparent;
+      }
+
+      #messages-container::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      #messages-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #messages-container::-webkit-scrollbar-thumb {
+        background-color: #d4d4d4;
+        border-radius: 3px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-bubble {
+        animation: fadeInUp 0.3s ease-out;
+      }
+
+      .chat-textarea {
+        resize: none;
+        overflow-y: auto;
+        max-height: 200px;
+        font-family: 'DM Sans', sans-serif;
+      }
+
+      .chat-textarea:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

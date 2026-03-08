@@ -1,0 +1,15 @@
+<div id="messages-container"
+     class="flex-1 overflow-y-auto px-4 py-6"
+     data-chat-form-target="messagesContainer">
+  <div class="max-w-3xl mx-auto">
+    <div id="messages">
+      <%= render messages %>
+    </div>
+  </div>
+</div>
+
+<div class="pb-6 pt-2 px-4">
+  <div class="max-w-3xl mx-auto">
+    <%= render "chat_input", form_message: form_message %>
+  </div>
+</div>

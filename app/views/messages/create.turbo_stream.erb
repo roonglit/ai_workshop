@@ -1,0 +1,11 @@
+<% if Message.count == 1 %>
+  <%# First message: replace empty state with chat layout %>
+  <%= turbo_stream.replace "empty-state" do %>
+    <%= render "chat_layout", messages: Message.order(created_at: :asc), form_message: Message.new %>
+  <% end %>
+<% else %>
+  <%# Subsequent messages: just append %>
+  <%= turbo_stream.append "messages" do %>
+    <%= render @message %>
+  <% end %>
+<% end %>
