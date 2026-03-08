@@ -26,6 +26,7 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
+        @reply = Entry.create!(role: :assistant, content: "This is a placeholder response. LLM integration coming soon!")
         format.turbo_stream
         format.html { redirect_to entries_path }
         format.json { render :show, status: :created, location: @entry }

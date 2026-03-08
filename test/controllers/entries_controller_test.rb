@@ -16,7 +16,7 @@ class EntriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create entry" do
-    assert_difference("Entry.count") do
+    assert_difference("Entry.count", 2) do
       post entries_url, params: { entry: { content: @entry.content, role: @entry.role } }
     end
 

@@ -1,11 +1,13 @@
-<% if Entry.count == 1 %>
-  <%# First entry: replace empty state with chat layout %>
+<% if Entry.count == 2 %>
+  <%# First exchange: replace empty state with chat layout %>
   <%= turbo_stream.replace "empty-state" do %>
     <%= render "chat_layout", entries: Entry.order(created_at: :asc), form_entry: Entry.new %>
   <% end %>
 <% else %>
-  <%# Subsequent entries: just append %>
   <%= turbo_stream.append "entries" do %>
     <%= render @entry %>
+  <% end %>
+  <%= turbo_stream.append "entries" do %>
+    <%= render @reply %>
   <% end %>
 <% end %>
