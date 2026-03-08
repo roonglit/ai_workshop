@@ -49,6 +49,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  # DELETE /messages/clear_all
+  def clear_all
+    Message.destroy_all
+
+    respond_to do |format|
+      format.turbo_stream { redirect_to messages_path }
+      format.html { redirect_to messages_path }
+    end
+  end
+
   # DELETE /messages/1 or /messages/1.json
   def destroy
     @message.destroy!

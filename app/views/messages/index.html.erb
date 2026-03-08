@@ -1,29 +1,9 @@
 <% content_for :title, "Messages" %>
 
-<%
-  hour = Time.current.hour
-  greeting = if hour < 12
-    "Good morning"
-  elsif hour < 17
-    "Good afternoon"
-  else
-    "Good evening"
-  end
-  has_messages = @messages.any?
-%>
-
 <div id="chat-wrapper" class="flex flex-col flex-1 h-full w-full" data-controller="chat-form">
-  <% if has_messages %>
+  <% if @messages.any? %>
     <%= render "chat_layout", messages: @messages, form_message: @message %>
   <% else %>
-    <div id="empty-state" class="flex-1 flex flex-col items-center justify-center px-4">
-      <div class="text-center mb-8">
-        <h1 class="font-greeting text-4xl md:text-5xl font-semibold mb-2" style="color: #2F2F2E;"><%= greeting %></h1>
-        <p class="text-base" style="color: #999;">How can I help you today?</p>
-      </div>
-      <div class="w-full max-w-3xl">
-        <%= render "chat_input", form_message: @message %>
-      </div>
-    </div>
+    <%= render "empty_state", form_message: @message %>
   <% end %>
 </div>
