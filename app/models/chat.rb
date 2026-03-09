@@ -1,3 +1,7 @@
 class Chat < ApplicationRecord
-  acts_as_chat messages_foreign_key: :chat_id
+  # step1: basic associations
+  has_many :messages, dependent: :destroy
+
+  # step2: integrate RubyLLM (comment out step1)
+  # acts_as_chat messages_foreign_key: :chat_id
 end
