@@ -1,6 +1,7 @@
 <% if @chat.messages.count == 2 %>
   <%# First exchange: replace empty state with chat layout %>
   <%= turbo_stream.replace "empty-state" do %>
+    <%= turbo_stream_from @chat %>
     <%= render "chat_layout", messages: @chat.messages.order(created_at: :asc) %>
   <% end %>
 <% else %>

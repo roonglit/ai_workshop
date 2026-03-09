@@ -20,10 +20,18 @@ export default class extends Controller {
     }
 
     document.addEventListener("turbo:before-stream-render", this.handleStreamRender)
+
+    // step3: observe DOM changes for streaming updates and auto-scroll
+    this.observer = new MutationObserver(() => this.scrollToBottom())
+    const messagesEl = document.getElementById("messages")
+    if (messagesEl) {
+      this.observer.observe(messagesEl, { childList: true, subtree: true, characterData: true })
+    }
   }
 
   disconnect() {
     document.removeEventListener("turbo:before-stream-render", this.handleStreamRender)
+    if (this.observer) this.observer.disconnect()
   }
 
   autoResize() {

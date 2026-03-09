@@ -1,5 +1,8 @@
 <% content_for :title, "Chat" %>
 
+<%# step3: subscribe to streaming updates via ActionCable %>
+<%= turbo_stream_from @chat if @chat %>
+
 <div id="chat-wrapper" class="flex flex-col flex-1 h-full w-full" data-controller="chat-form">
   <% if @messages.any? %>
     <%= render "chat_layout", messages: @messages %>

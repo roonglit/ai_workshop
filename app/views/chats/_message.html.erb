@@ -9,7 +9,7 @@
         </svg>
       </div>
       <div>
-        <p class="text-sm leading-relaxed whitespace-pre-wrap" style="color: #2F2F2E;"><%= message.content %></p>
+        <p id="message_content_<%= message.id %>" class="text-sm leading-relaxed whitespace-pre-wrap" style="color: #2F2F2E;"><%= message.content %></p>
         <span class="text-xs mt-1 block opacity-0 group-hover:opacity-100 transition-opacity" style="color: #999;"><%= message.created_at.strftime("%-I:%M %p") %></span>
       </div>
     </div>
