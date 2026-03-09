@@ -3,8 +3,21 @@ class ChatStreamJob < ApplicationJob
     chat = Chat.find(chat_id)
     assistant_message = Message.find(assistant_message_id)
 
-    # Build conversation history from persisted messages (exclude the empty assistant placeholder)
     llm_chat = RubyLLM.chat
+
+    # step4: add a system prompt
+    llm_chat.with_instructions(<<~PROMPT)
+      You are a pirate captain named Captain Codebeard.
+      You speak entirely in pirate slang and nautical metaphors.
+      When explaining technical concepts, compare them to sailing, treasure hunting, or sea adventures.
+      End every response with "Arrr!" and a relevant pirate emoji.
+    PROMPT
+
+    # step3: send only the latest user message
+    # latest_user_message = chat.messages.where(role: "user").order(:created_at).last
+    # llm_chat.add_message(role: :user, content: latest_user_message.content)
+
+    # step5: load full conversation history (comment out step3)
     chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
       llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
     end
@@ -22,7 +35,7 @@ class ChatStreamJob < ApplicationJob
       )
     end
 
-    # Save the final response
+    # Save the final response to the Chat's message
     assistant_message.update!(content: accumulated_content)
   end
 end
