@@ -8,13 +8,13 @@ class ChatsController < ApplicationController
     @chat = Chat.first_or_create!
 
     # step1: basic response, no LLM
-    @user_message = @chat.messages.create!(role: "user", content: chat_params[:content])
-    @assistant_message = @chat.messages.create!(role: "assistant", content: "This is a placeholder response. LLM integration coming soon!")
+    # @user_message = @chat.messages.create!(role: "user", content: chat_params[:content])
+    # @assistant_message = @chat.messages.create!(role: "assistant", content: "This is a placeholder response. LLM integration coming soon!")
 
     # step2: call LLM with RubyLLM (comment out step1)
-    # @chat.ask(chat_params[:content])
-    # @user_message = @chat.messages.where(role: "user").order(:created_at).last
-    # @assistant_message = @chat.messages.where(role: "assistant").order(:created_at).last
+    @chat.ask(chat_params[:content])
+    @user_message      = @chat.messages.second_to_last
+    @assistant_message = @chat.messages.last
 
     respond_to do |format|
       format.turbo_stream
