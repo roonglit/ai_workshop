@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resources :entries do
-    collection do
-      delete :clear_all
-    end
+  resource :chat, only: [:show, :create] do
+    delete :clear, on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -15,5 +13,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "entries#index"
+  root "chats#show"
 end

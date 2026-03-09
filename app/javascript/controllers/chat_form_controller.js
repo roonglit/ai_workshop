@@ -54,7 +54,7 @@ export default class extends Controller {
   scrollToBottom() {
     const container = this.hasMessagesContainerTarget
       ? this.messagesContainerTarget
-      : document.getElementById("entries-container")
+      : document.getElementById("messages-container")
 
     if (container) {
       container.scrollTop = container.scrollHeight
