@@ -7,6 +7,18 @@
       <span class="text-sm" style="color: #999;"><%= @products.count %> items</span>
     </div>
 
+    <%= form_with url: products_path, method: :get, class: "mb-6" do |f| %>
+      <div class="flex gap-2">
+        <input type="text" name="query" value="<%= params[:query] %>" placeholder="Search products..."
+          class="flex-1 text-sm rounded-xl border px-4 py-2.5"
+          style="background: #FFFFFF; border-color: #E8E6E1; color: #2F2F2E;">
+        <button type="submit" class="px-4 py-2.5 rounded-xl text-sm text-white transition-colors hover:opacity-80" style="background-color: #D4714E;">Search</button>
+        <% if params[:query].present? %>
+          <%= link_to "Clear", products_path, class: "px-4 py-2.5 rounded-xl text-sm border transition-colors hover:opacity-80", style: "border-color: #E8E6E1; color: #999;" %>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if @products.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <% @products.each do |product| %>
