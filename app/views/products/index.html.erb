@@ -1,0 +1,53 @@
+<% content_for :title, "Products" %>
+
+<div class="flex-1 overflow-y-auto px-4 py-8">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-semibold" style="color: #2F2F2E;">Products</h1>
+      <span class="text-sm" style="color: #999;"><%= @products.count %> items</span>
+    </div>
+
+    <% if @products.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <% @products.each do |product| %>
+          <div class="rounded-2xl border overflow-hidden transition-shadow hover:shadow-md" style="background: #FFFFFF; border-color: #E8E6E1;">
+            <% if product.image_url.present? %>
+              <div class="w-full h-44 overflow-hidden" style="background: #F0EFEC;">
+                <img src="<%= product.image_url %>" alt="<%= product.name %>" class="w-full h-full object-cover" loading="lazy">
+              </div>
+            <% end %>
+            <div class="p-5">
+            <div class="flex items-start justify-between mb-2">
+              <span class="text-xs font-medium px-2 py-0.5 rounded-full" style="background: rgba(212,113,78,0.1); color: #D4714E;">
+                <%= product.category %>
+              </span>
+              <span class="text-xs font-medium <%= product.stock <= 5 ? 'text-red-500' : '' %>" style="<%= product.stock > 5 ? 'color: #999;' : '' %>">
+                <%= product.stock %> in stock
+              </span>
+            </div>
+
+            <h2 class="text-base font-semibold mt-3 mb-1" style="color: #2F2F2E;"><%= product.name %></h2>
+            <p class="text-sm leading-relaxed mb-3" style="color: #777;"><%= truncate(product.description, length: 100) %></p>
+
+            <div class="flex items-center justify-between mt-auto">
+              <span class="text-lg font-semibold" style="color: #2F2F2E;"><%= number_to_currency(product.price, unit: "฿", precision: 0) %></span>
+            </div>
+
+            <% if product.tags.present? %>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <% product.tags.split(",").map(&:strip).each do |tag| %>
+                  <span class="text-xs px-2 py-0.5 rounded-full" style="background: #F0EFEC; color: #777;"><%= tag %></span>
+                <% end %>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-20">
+        <p class="text-base" style="color: #999;">No products yet. Run <code class="text-sm px-2 py-1 rounded" style="background: #F0EFEC;">bin/rails db:seed</code> to add some.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :products, only: [:index]
+
   resource :chat, only: [:show, :create] do
     delete :clear, on: :member
   end
