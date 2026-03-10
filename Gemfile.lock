@@ -447,6 +447,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  mcp
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.2)
