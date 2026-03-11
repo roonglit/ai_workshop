@@ -1,4 +1,4 @@
-class Products::IndexTool < MCP::Tool
+class Mcp::ProductSearchTool < MCP::Tool
   description "Search and list products from the Thai ecommerce store"
 
   input_schema(
