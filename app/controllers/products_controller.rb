@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
       # @products = @products.where("name LIKE ? OR description LIKE ? OR tags LIKE ?", q, q, q)
 
       # step2_2: search with LLM tool
-      @products = llm_search(params[:query])
+      @products, @llm_queries = llm_search(params[:query])
+
     end
 
     @products = @products.order(:category, :name)
@@ -38,11 +39,15 @@ class ProductsController < ApplicationController
                 If no products found, respond with: NONE
     PROMPT
 
+    queries = []
+    chat.on_tool_call do |tool_call|
+      queries << tool_call.arguments if tool_call.name == "product_search"
+    end
+
     response = chat.ask(query)
     ids = response.content.scan(/\d+/).map(&:to_i)
 
-    return Product.none if ids.empty?
-
-    Product.where(id: ids)
+    products = ids.empty? ? Product.none : Product.where(id: ids)
+    [ products, queries ]
   end
 end

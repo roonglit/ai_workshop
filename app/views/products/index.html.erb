@@ -19,6 +19,17 @@
       </div>
     <% end %>
 
+    <% if @llm_queries.present? %>
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        <span class="text-xs" style="color: #999;">🔍 LLM searched:</span>
+        <% @llm_queries.each do |q| %>
+          <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(212,113,78,0.1); color: #D4714E;">
+            <%= q["query"] %><%= " (#{q["category"]})" if q["category"] %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if @products.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <% @products.each do |product| %>

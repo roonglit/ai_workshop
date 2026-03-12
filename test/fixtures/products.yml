@@ -1,17 +1,63 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+cat_food:
+  name: "Premium Cat Food"
+  category: "Pets"
+  description: "Nutritious dry food for adult cats"
+  price: 350
+  stock: 25
+  tags: "cat,pet,food,dry"
 
-one:
-  name: MyString
-  category: MyString
-  description: MyText
-  price: 9.99
-  stock: 1
-  tags: MyString
+dog_toy:
+  name: "Rubber Dog Ball"
+  category: "Pets"
+  description: "Durable chew toy for dogs"
+  price: 120
+  stock: 15
+  tags: "dog,pet,toy"
 
-two:
-  name: MyString
-  category: MyString
-  description: MyText
-  price: 9.99
-  stock: 1
-  tags: MyString
+wireless_charger:
+  name: "Wireless Phone Charger"
+  category: "Electronics"
+  description: "Fast charging pad for smartphones"
+  price: 890
+  stock: 10
+  tags: "charger,wireless,phone,electronics"
+
+coffee_mug:
+  name: "Ceramic Coffee Mug"
+  category: "Kitchen"
+  description: "Handmade ceramic mug for hot drinks"
+  price: 199
+  stock: 40
+  tags: "coffee,mug,kitchen,ceramic"
+
+yoga_mat:
+  name: "Non-Slip Yoga Mat"
+  category: "Sports"
+  description: "Thick exercise mat for yoga and fitness"
+  price: 599
+  stock: 8
+  tags: "yoga,mat,fitness,sports"
+
+running_shoes:
+  name: "Lightweight Running Shoes"
+  category: "Sports"
+  description: "Breathable shoes for running and jogging"
+  price: 1290
+  stock: 5
+  tags: "shoes,running,sports,fitness"
+
+cat_treats:
+  name: "Salmon Cat Treats"
+  category: "Pets"
+  description: "Tasty salmon snacks for cats"
+  price: 89
+  stock: 50
+  tags: "cat,pet,treats,snack,salmon"
+
+out_of_stock_item:
+  name: "Limited Edition Notebook"
+  category: "Stationery"
+  description: "Premium leather-bound notebook"
+  price: 450
+  stock: 0
+  tags: "notebook,stationery,leather"
