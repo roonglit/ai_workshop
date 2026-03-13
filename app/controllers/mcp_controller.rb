@@ -13,7 +13,11 @@ class McpController < ActionController::API
     MCP::Server.new(
       name: "ai_workshop_mcp_server",
       version: "1.0.0",
-      tools: MCP::Tool.descendants,
+      tools: [
+        Mcp::ProductSearchTool,
+        Mcp::LowStockTool,
+        Mcp::CategorySummaryTool
+      ],
       prompts: MCP::Prompt.descendants
     )
   end

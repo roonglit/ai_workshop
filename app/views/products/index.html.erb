@@ -17,14 +17,19 @@
           <%= link_to "Clear", products_path, class: "px-4 py-2.5 rounded-xl text-sm border transition-colors hover:opacity-80", style: "border-color: #E8E6E1; color: #999;" %>
         <% end %>
       </div>
+      <div class="flex items-center gap-2 mt-2">
+        <input type="checkbox" name="llm" value="1" id="llm_toggle" <%= "checked" if params[:llm] == "1" %>
+          class="rounded border" style="border-color: #E8E6E1; accent-color: #D4714E;">
+        <label for="llm_toggle" class="text-sm" style="color: #777;">LLM-enhanced search</label>
+      </div>
     <% end %>
 
-    <% if @llm_queries.present? %>
+    <% if @llm_keywords.present? %>
       <div class="flex flex-wrap gap-1.5 mb-4">
-        <span class="text-xs" style="color: #999;">🔍 LLM searched:</span>
-        <% @llm_queries.each do |q| %>
+        <span class="text-xs" style="color: #999;">🔍 LLM keywords:</span>
+        <% @llm_keywords.each do |kw| %>
           <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(212,113,78,0.1); color: #D4714E;">
-            <%= q["query"] %><%= " (#{q["category"]})" if q["category"] %>
+            <%= kw %>
           </span>
         <% end %>
       </div>
