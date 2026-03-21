@@ -156,17 +156,9 @@ Add this MCP server config to Claude Desktop or any MCP-compatible client:
 ```json
 {
   "mcpServers": {
-    "local-geniusfoundr": {
-      "command": "/Users/mac/.nvm/versions/node/v22.9.0/bin/npx",
-      "args": [
-        "mcp-remote",
-        "http://192.168.100.209:3000/mcp",
-        "--allow-http",
-        "--keep-alive"
-      ],
-      "env": {
-        "PATH": "/Users/mac/.nvm/versions/node/v22.9.0/bin:/usr/local/bin:/usr/bin:/bin"
-      }
+    "thai-ecommerce": {
+      "type": "StreamableHttp",
+      "url": "http://localhost:3000/mcp"
     }
   }
 }
