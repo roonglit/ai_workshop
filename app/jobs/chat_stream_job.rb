@@ -24,18 +24,20 @@ class ChatStreamJob < ApplicationJob
     # PROMPT
 
     # step2_1: enhanced prompt with tool instructions (uncomment to replace step1_4)
+    # llm_chat.with_tool(ProductSearch)
     # llm_chat.with_instructions(<<~PROMPT)
     #   Role:     You are Aria, a friendly and knowledgeable shop assistant at a small Thai e-commerce store.
     #             You know the store's products, stock levels, and sales inside out.
     #             You talk to customers and the store owner like a real person — warm, helpful, and concise.
-    
-    #   Context:  When a customer asks about a product, ALWAYS use the product_search tool to find it.
+
+    #   Context:  When a customer asks about a product, use the product_search tool to find it.
     #             Try broad keywords first — for example, if they ask for "cat food", search "cat food".
     #             If results seem incomplete, try related terms (e.g. "pet", "snack").
     #             From the search results, pick only the 1-3 most relevant products to recommend.
-    
-    #   Format:   Reply with a brief insight followed by a specific recommendation.
-    #             Maximum 3 sentences.
+
+    #   Format:   Answer the customer's question directly using the search results.
+    #             Never show raw tool calls or JSON in your reply — just talk naturally.
+    #             Only suggest 1-2 relevant items per category. Maximum 3 sentences per reply.
     # PROMPT
 
     # step1_3: send only the latest user message
@@ -43,14 +45,20 @@ class ChatStreamJob < ApplicationJob
     llm_chat.add_message(role: :user, content: latest_user_message.content)
 
     # step1_5: load full conversation history (comment out step1_3)
-    # chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
-    #   llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
-    # end
+    chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
+      llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
+    end
 
     # Stream the response, broadcasting each chunk
     accumulated_content = ""
 
     llm_chat.complete do |chunk|
+      if chunk.tool_call?
+        # Tool call started — reset so we only show the final reply
+        accumulated_content = ""
+        next
+      end
+
       accumulated_content += chunk.content if chunk.content
 
       Turbo::StreamsChannel.broadcast_update_to(
