@@ -11,6 +11,8 @@ class ChatStreamJob < ApplicationJob
                 You know the store's products, stock levels, and sales inside out.
                 You talk to customers and the store owner like a real person — warm, helpful, and concise.
 
+      Context: 
+
       Search:   When a customer asks about a product, ALWAYS use the product_search tool to find it.
                 Try broad keywords first — for example, if they ask for "cat food", search "cat food".
                 If results seem incomplete, try related terms (e.g. "pet", "snack").
@@ -21,13 +23,13 @@ class ChatStreamJob < ApplicationJob
     PROMPT
 
     # step1_3: send only the latest user message
-    # latest_user_message = chat.messages.where(role: "user").order(:created_at).last
-    # llm_chat.add_message(role: :user, content: latest_user_message.content)
+    latest_user_message = chat.messages.where(role: "user").order(:created_at).last
+    llm_chat.add_message(role: :user, content: latest_user_message.content)
 
     # step1_5: load full conversation history (comment out step1_3)
-    chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
-      llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
-    end
+    # chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
+    #   llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
+    # end
 
     # Stream the response, broadcasting each chunk
     accumulated_content = ""

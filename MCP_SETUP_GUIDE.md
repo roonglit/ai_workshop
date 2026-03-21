@@ -156,7 +156,7 @@ Add this MCP server config to Claude Desktop or any MCP-compatible client:
 ```json
 {
   "mcpServers": {
-    "shop-assistant": {
+    "local-geniusfoundr": {
       "command": "/Users/mac/.nvm/versions/node/v22.9.0/bin/npx",
       "args": [
         "mcp-remote",
