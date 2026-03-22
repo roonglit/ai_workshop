@@ -45,9 +45,9 @@ class ChatStreamJob < ApplicationJob
     llm_chat.add_message(role: :user, content: latest_user_message.content)
 
     # step1_5: load full conversation history (comment out step1_3)
-    chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
-      llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
-    end
+    # chat.messages.where.not(id: assistant_message.id).order(:created_at).each do |msg|
+    #   llm_chat.add_message(role: msg.role.to_sym, content: msg.content)
+    # end
 
     # Stream the response, broadcasting each chunk
     accumulated_content = ""
